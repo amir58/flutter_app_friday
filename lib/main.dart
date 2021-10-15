@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_friday/bmi.dart';
+import 'package:flutter_app_friday/counter_screen.dart';
 import 'package:flutter_app_friday/dart/list_view.dart';
 import 'package:flutter_app_friday/first.dart';
 import 'package:flutter_app_friday/forget_password.dart';
+import 'package:flutter_app_friday/home.dart';
 import 'package:flutter_app_friday/messenger_list_view.dart';
 
 void main() {
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MessengerScreen(),
+      home: LoginScreen(),
     );
   }
 }

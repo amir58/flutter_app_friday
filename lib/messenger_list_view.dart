@@ -1,26 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_friday/models/message.dart';
 import 'package:flutter_app_friday/models/user.dart';
 
 class MessengerScreen extends StatelessWidget {
 
+  List<User> users = [];
+  List<Message> messages = [];
+
   MessengerScreen(){
     var user1 = User("Amir", "https://antolgy.com/wp-content/uploads/2018/08/elon-musk-1.jpg");
 
-    var user2 = User("Peter", "");
+    var user2 = User("Peter", "https://media.wired.com/photos/6019cab23453f789506008d0/1:1/w_1600,h_1600,c_limit/Sec_Bezos_1036084400.jpg");
 
-    var user3 = User("Peter", "");
-    var user4 = User("Peter", "");
-    var user5 = User("Peter", "");
-    var user6 = User("Peter", "");
+    var user3 = User("Fahmy", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Mark_Zuckerberg_F8_2018_Keynote_%28cropped%29.jpg/1200px-Mark_Zuckerberg_F8_2018_Keynote_%28cropped%29.jpg");
 
-    
+    var user4 = User("Marco", "https://img.kooora.com/?i=ashraf-zamrani%2Flionelmessi.gif");
+
+    var user5 = User("Khalaf", "https://content.fortune.com/wp-content/uploads/2020/09/CNV.10.20.FORTUNE_BILL_AND_MELINDA_GATES_030-vertical.jpg");
+
+    var user6 = User("Hamdy", "https://cdn.vox-cdn.com/thumbor/7VvhqD3PcqsQrD3L4J2LBRhlsaU=/0x137:575x520/1400x1400/filters:focal(0x137:575x520):format(png)/cdn.vox-cdn.com/assets/695120/jobs_hero20110329.png");
+
+    users.add(user1);
+    users.add(user2);
+    users.add(user3);
+    users.add(user4);
+    users.add(user5);
+    users.add(user6);
+
+    users.add(user1);
+    users.add(user2);
+    users.add(user3);
+    users.add(user4);
+    users.add(user5);
+    users.add(user6);
+
+    var message1 = Message("Amir", "https://antolgy.com/wp-content/uploads/2018/08/elon-musk-1.jpg", "HelloWorld!", true, false);
+
+    var message2 = Message("Peter", "https://media.wired.com/photos/6019cab23453f789506008d0/1:1/w_1600,h_1600,c_limit/Sec_Bezos_1036084400.jpg", "Hello Ahmed how are you", true, true);
+
+    var message3 = Message("Fahmy", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Mark_Zuckerberg_F8_2018_Keynote_%28cropped%29.jpg/1200px-Mark_Zuckerberg_F8_2018_Keynote_%28cropped%29.jpg", "Hello samy i miss you", false, true);
+
+    var message4 = Message("Marco", "https://img.kooora.com/?i=ashraf-zamrani%2Flionelmessi.gif", "Hello flutter", false, false);
+
+    var message5 = Message("Khalaf", "https://content.fortune.com/wp-content/uploads/2020/09/CNV.10.20.FORTUNE_BILL_AND_MELINDA_GATES_030-vertical.jpg", "who ?", true, true);
+
+    var message6 = Message("Hamdy", "https://cdn.vox-cdn.com/thumbor/7VvhqD3PcqsQrD3L4J2LBRhlsaU=/0x137:575x520/1400x1400/filters:focal(0x137:575x520):format(png)/cdn.vox-cdn.com/assets/695120/jobs_hero20110329.png", "Good bye", false, true);
+
+    messages.add(message1);
+    messages.add(message2);
+    messages.add(message3);
+    messages.add(message4);
+    messages.add(message5);
+    messages.add(message6);
+
+    messages.add(message1);
+    messages.add(message2);
+    messages.add(message3);
+    messages.add(message4);
+    messages.add(message5);
+    messages.add(message6);
+
   }
 
 
 
   @override
   Widget build(BuildContext context) {
-
 
     return Scaffold(
       body: Container(
@@ -128,19 +173,20 @@ class MessengerScreen extends StatelessWidget {
                       physics: NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
+                        print(index);
+
                         return Column(
                           children: [
                             CircleAvatar(
                               radius: 30,
                               backgroundColor: Colors.grey[700],
-                              backgroundImage: NetworkImage(
-                                  "https://pyxis.nymag.com/v1/imgs/6ca/c27/d480ad69b8be1bff0dc381baefb2d41ac0-30-tim-cook.2x.h473.w710.jpg"),
+                              backgroundImage: NetworkImage(users[index].imageUrl),
                             ),
                             SizedBox(
                               height: 5,
                             ),
                             Text(
-                              "Mostafa",
+                              users[index].name,
                               style: TextStyle(color: Colors.white),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -148,12 +194,12 @@ class MessengerScreen extends StatelessWidget {
                           ],
                         );
                       },
-                      itemCount: 30,
+                      itemCount: users.length,
                     ),
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ListView.separated(
@@ -168,10 +214,9 @@ class MessengerScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                           radius: 35,
-                          backgroundImage: NetworkImage(
-                              "https://pyxis.nymag.com/v1/imgs/6ca/c27/d480ad69b8be1bff0dc381baefb2d41ac0-30-tim-cook.2x.h473.w710.jpg")),
+                          backgroundImage: NetworkImage(messages[index].imageUrl)),
                       CircleAvatar(backgroundColor: Colors.black, radius: 11,),
-                      CircleAvatar(backgroundColor: Colors.green, radius: 9,),
+                      CircleAvatar(backgroundColor: messages[index].active ? Colors.green : Colors.red, radius: 9,),
                     ],),
                   SizedBox(width: 10,),
                   Expanded(
@@ -179,7 +224,7 @@ class MessengerScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Mostafa Gamal",
+                          messages[index].name,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -188,7 +233,7 @@ class MessengerScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 5,),
                         Text(
-                          "Hello flutter slkjdlsk sdalkasld lskdasl lskfsl ",
+                          messages[index].message,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -202,11 +247,12 @@ class MessengerScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 5,),
-                  CircleAvatar(backgroundColor: Colors.blue,radius: 8,),
+                  CircleAvatar(backgroundColor: messages[index].read ? Colors.black : Colors.blue,
+                    radius: 8,),
                 ],
               ),
                   scrollDirection: Axis.vertical,
-                itemCount: 100,
+                itemCount: messages.length,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
               ),

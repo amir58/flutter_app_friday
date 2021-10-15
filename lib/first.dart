@@ -48,7 +48,7 @@ class FirstScreen extends StatelessWidget {
                 alignment: Alignment.centerRight,
                 child: InkWell(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPasswordScreen(),));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
                   },
                   child: Text(
                     "Forget password ?",
@@ -69,7 +69,7 @@ class FirstScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15)),
                   color: Colors.blue,
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(""),));
                   },
                   child: Text(
                     "Login",

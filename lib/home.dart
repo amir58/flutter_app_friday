@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
+  String _email;
+
+  HomeScreen(this._email);
+
   @override
   Widget build(BuildContext context) {
+    print('HOME SCREEN => $_email');
+
     return Scaffold(
       // appBar: AppBar(
       //   title: Text("Home"),
