@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_friday/models/message.dart';
-import 'package:flutter_app_friday/models/user.dart';
+
+import 'models/message.dart';
+import 'models/user.dart';
 
 class MessengerScreen extends StatelessWidget {
 

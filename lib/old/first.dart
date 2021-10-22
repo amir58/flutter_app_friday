@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_friday/forget_password.dart';
-import 'package:flutter_app_friday/home.dart';
+import 'package:flutter_app_friday/old/forget_password.dart';
+
+import 'home.dart';
 
 class FirstScreen extends StatelessWidget {
   @override

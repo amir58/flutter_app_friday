@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_friday/bmi.dart';
-import 'package:flutter_app_friday/counter_screen.dart';
-import 'package:flutter_app_friday/dart/list_view.dart';
-import 'package:flutter_app_friday/first.dart';
-import 'package:flutter_app_friday/forget_password.dart';
 import 'package:flutter_app_friday/home.dart';
-import 'package:flutter_app_friday/messenger_list_view.dart';
+import 'package:flutter_app_friday/old/bmi.dart';
+import 'package:flutter_app_friday/old/counter_screen.dart';
+import 'package:flutter_app_friday/old/first.dart';
+import 'package:flutter_app_friday/old/forget_password.dart';
+import 'package:flutter_app_friday/old/messenger_list_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -34,7 +33,15 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      home: HomeScreen(),
     );
   }
+
+
+  Future<int> sum(int numOne, int numTwo) async {
+    return  numOne + numTwo;
+  }
+
+
+
 }

@@ -1,4 +1,5 @@
-import 'package:flutter_app_friday/dart/student.dart';
+
+import 'package:flutter_app_friday/old/dart/student.dart';
 
 import 'human.dart';
 
