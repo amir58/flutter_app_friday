@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_friday/tasks_cubit.dart';
 import 'home.dart';
 
 Widget myTextFormField(
@@ -26,67 +27,74 @@ Widget myTextFormField(
   );
 }
 
-Widget buildTasksListView(List<Map<dynamic, dynamic>> list) {
+Widget buildTasksListView(List<Map<dynamic, dynamic>> list, TasksCubit cubit) {
   Widget buildTaskItem(int index) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
-      ),
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.all(10),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                  child: Text(
-                list[index]['title'],
-                style: TextStyle(fontSize: 20),
-              )),
-              IconButton(
-                icon: Icon(
-                  Icons.done_all,
-                  color: Colors.blue,
+    return Dismissible(
+      key: Key(list[index]['id'].toString()),
+      onDismissed: (direction) {
+        cubit.deleteTask(task: list[index]);
+
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10),
+        ),
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                    child: Text(
+                      list[index]['title'],
+                      style: TextStyle(fontSize: 20),
+                    )),
+                IconButton(
+                  icon: Icon(
+                    Icons.done_all,
+                    color: Colors.blue,
+                  ),
+                  onPressed: () {
+                    cubit.updateTask(status: "done", id: list[index]['id']);
+                    cubit.getTasks(status: "active");
+                    cubit.getTasks(status: "done");
+                    cubit.getTasks(status: "archive");
+                  },
                 ),
-                onPressed: () {
-                  updateTask(status: "done", id: list[index]['id']);
-                  getTasks(status: "active");
-                  getTasks(status: "done");
-                  getTasks(status: "archive");
-                },
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.archive,
-                  color: Colors.blue,
+                IconButton(
+                  icon: Icon(
+                    Icons.archive,
+                    color: Colors.blue,
+                  ),
+                  onPressed: () {
+                    cubit.updateTask(status: "archive", id: list[index]['id']);
+                    cubit.getTasks(status: "active");
+                    cubit.getTasks(status: "done");
+                    cubit.getTasks(status: "archive");
+                  },
                 ),
-                onPressed: () {
-                  updateTask(status: "archive", id: list[index]['id']);
-                  getTasks(status: "active");
-                  getTasks(status: "done");
-                  getTasks(status: "archive");
-                },
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Date : ${list[index]['date']}",
-                style: TextStyle(fontSize: 16),
-              ),
-              Text(
-                "Time : ${list[index]['time']}",
-                style: TextStyle(fontSize: 16),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Date : ${list[index]['date']}",
+                  style: TextStyle(fontSize: 16),
+                ),
+                Text(
+                  "Time : ${list[index]['time']}",
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -99,3 +107,5 @@ Widget buildTasksListView(List<Map<dynamic, dynamic>> list) {
     itemBuilder: (BuildContext context, int index) => buildTaskItem(index),
   );
 }
+
+

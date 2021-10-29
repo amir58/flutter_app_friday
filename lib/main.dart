@@ -1,3 +1,4 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_friday/home.dart';
 import 'package:flutter_app_friday/old/bmi.dart';
@@ -6,7 +7,11 @@ import 'package:flutter_app_friday/old/first.dart';
 import 'package:flutter_app_friday/old/forget_password.dart';
 import 'package:flutter_app_friday/old/messenger_list_view.dart';
 
+import 'bloc_observer.dart';
+
 void main() {
+  Bloc.observer = MyBlocObserver();
+
   runApp(MyApp());
 }
 

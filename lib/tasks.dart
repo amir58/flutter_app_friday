@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_friday/data.dart';
+import 'package:flutter_app_friday/tasks_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'components.dart';
 
 class TasksScreen extends StatefulWidget {
@@ -10,9 +12,12 @@ class TasksScreen extends StatefulWidget {
 class _TasksScreenState extends State<TasksScreen> {
   @override
   Widget build(BuildContext context) {
-    return buildTasksListView(activeList);
+    return BlocConsumer<TasksCubit, TasksStates>(
+      builder: (context, state) {
+        TasksCubit cubit = TasksCubit.get(context);
+        return buildTasksListView(cubit.activeList , cubit);
+      },
+      listener: (context, state) {},
+    );
   }
-
-
-
 }
