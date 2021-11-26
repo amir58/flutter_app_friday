@@ -1,19 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_friday/dio/news_webview.dart';
 import 'package:flutter_app_friday/tasks_cubit.dart';
 import 'home.dart';
 
-Widget myTextFormField(
-    {@required TextEditingController controller,
-    @required FormFieldValidator<String> validator,
-    TextInputAction inputAction = TextInputAction.next,
-    TextInputType inputType = TextInputType.text,
-    @required IconData prefixIcon,
-    @required String label,
-    bool obscureText = false,
-    Widget suffixIcon,
-    GestureTapCallback onTap}) {
+Widget myNewsListView(List<dynamic> news) {
+  return news.isEmpty
+      ? Center(child: CircularProgressIndicator.adaptive())
+      : ListView.builder(
+    itemCount: news.length,
+    itemBuilder: (context, index) {
+      return InkWell(
+        onTap: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(
+            builder: (context) => NewsWebView(news[index]['url']),));
+        },
+        child: Container(
+            height: 300,
+            margin: EdgeInsets.all(10),
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                // color: Colors.grey[200],
+            ),
+            child: Column(
+              children: [
+                Container(
+                  child: Image.network(
+                    news[index]['urlToImage'] ?? "",
+                  ),
+                  width: 300,
+                  height: 200,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Expanded(child: Text(news[index]['title'], style: Theme.of(context).textTheme.bodyText1,)),
+              ],
+            )),
+      );
+    },
+  );
+}
+
+
+
+
+Widget myTextFormField({@required TextEditingController controller,
+  @required FormFieldValidator<String> validator,
+  TextInputAction inputAction = TextInputAction.next,
+  TextInputType inputType = TextInputType.text,
+  @required IconData prefixIcon,
+  @required String label,
+  bool obscureText = false,
+  Widget suffixIcon,
+  GestureTapCallback onTap,
+  ValueChanged<String> onFieldSubmitted,
+}) {
   return TextFormField(
     onTap: onTap,
+    onFieldSubmitted: onFieldSubmitted,
     controller: controller,
     obscureText: obscureText,
     validator: validator,
@@ -33,7 +79,6 @@ Widget buildTasksListView(List<Map<dynamic, dynamic>> list, TasksCubit cubit) {
       key: Key(list[index]['id'].toString()),
       onDismissed: (direction) {
         cubit.deleteTask(task: list[index]);
-
       },
       child: Container(
         decoration: BoxDecoration(
@@ -101,11 +146,10 @@ Widget buildTasksListView(List<Map<dynamic, dynamic>> list, TasksCubit cubit) {
 
   return ListView.separated(
     itemCount: list.length,
-    separatorBuilder: (BuildContext context, int index) => SizedBox(
-      height: 10,
-    ),
+    separatorBuilder: (BuildContext context, int index) =>
+        SizedBox(
+          height: 10,
+        ),
     itemBuilder: (BuildContext context, int index) => buildTaskItem(index),
   );
 }
-
-
